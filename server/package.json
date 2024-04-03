@@ -1,0 +1,22 @@
+{
+  "name": "exploding-kitten-game",
+  "version": "1.0.0",
+  "description": "An online single player card game where user has to withdraw cards from a deck of 5 cards one by one.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "nodemon index.mjs",
+    "server": "node index.mjs"
+  },
+  "author": "Aditya Gupta",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.2.4"
+  }
+}
