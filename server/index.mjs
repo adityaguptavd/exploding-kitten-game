@@ -44,6 +44,6 @@ app.get('*', (req, res) => {
 
 connect().then(() => {
     app.listen(port, () => {
-        console.log(`Server is running on ${host}:${port}`);
+        console.log(`Server is running on port ${port}`);
     });
 });
