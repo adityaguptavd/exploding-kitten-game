@@ -41,7 +41,7 @@ export default function BasicTable() {
   return (
     <Box
       width="100%"
-      height="100vh"
+      minHeight="100vh"
       sx={{
         backgroundColor: "#f9ad3b",
         display: "flex",
@@ -50,14 +50,24 @@ export default function BasicTable() {
         justifyContent: "flex-start",
       }}
     >
-      <Typography variant="h3" sx={{ color: "#4b3412", marginTop: "20px" }}>
+      <Typography
+        variant="h3"
+        sx={{
+          color: "#4b3412",
+          marginTop: "20px",
+          fontSize: {
+            xs: "25px",
+            sm: "40px",
+          },
+        }}
+      >
         Leaderboard
       </Typography>
       <TableContainer
         component={Paper}
-        sx={{ margin: "10px", border: "1px solid #4b3412" }}
+        sx={{ margin: "10px", border: "1px solid #4b3412", boxSizing: "border-box" }}
       >
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 645 }} aria-label="simple table">
           <TableHead sx={{ backgroundColor: "#7d571e" }}>
             <TableRow>
               <TableCell sx={{ color: "#fff" }}>Username</TableCell>

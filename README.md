@@ -21,6 +21,9 @@ The ranking of leaderboard is based on:
 - In case two or more players have same number of winning matches, the player with less number of matches lost will be on top
 - In case two or more players have same number of winning matches and losing matches, time factor will be considered
 
+# Live Demo
+[Exploding Kitten Game](https://exploding-kitten-game-nw5n.onrender.com)
+
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
@@ -30,19 +33,12 @@ Before you begin, ensure you have met the following requirements:
 
 ## Installing and Using Exploding Kitten Game
 
-To install Exploding Kitten Game, follow these steps:
+To install and use Exploding Kitten Game, follow these steps:
 
 Open up a new terminal and type the following command:
 ```bash
 git clone https://github.com/adityaguptavd/exploding-kitten-game.git
-cd client/
-npm install
-npm run build
-```
-Copy the dist folder from client to server.
-Now open up a new terminal and type: 
-```bash
-cd server
+cd server/
 npm install
 npm run server
 ```

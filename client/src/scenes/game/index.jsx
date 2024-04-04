@@ -183,7 +183,7 @@ const Game = () => {
   return (
     <Box
       width="100%"
-      height="100vh"
+      minHeight="100vh"
       display="flex"
       flexDirection="column"
       alignItems="center"
@@ -195,65 +195,67 @@ const Game = () => {
         mssg: "",
         severity: "success",
       })} />
-      <Typography variant="h3" sx={{ color: "#644518", marginTop: "20px" }}>
+      <Typography variant="h3" sx={{ color: "#644518", marginTop: "20px", textAlign: "center", fontSize: {xs: "30px", md: "50px"} }}>
         {header}
       </Typography>
-      <Stack direction="row" spacing={10}>
-        {deck.map((card, index) => (
-          <Card
-            key={index}
-            sx={{ width: 200, backgroundColor: "#fbc676" }}
-            onClick={
-              isActive ? () => revealCard(card.revealed, index) : () => {setMssg("Click restart button to play!")}
-            }
+      <Stack direction={{xs: "column-reverse", md: "column"}} justifyContent="flex-start" alignItems="center" spacing={4} width="100%">
+        <Stack width="100%" direction="row" justifyContent="space-around" flexWrap="wrap">
+          {deck.map((card, index) => (
+            <Card
+              key={index}
+              sx={{ width: 200, backgroundColor: "#fbc676", marginBottom: "20px" }}
+              onClick={
+                isActive ? () => revealCard(card.revealed, index) : () => {setMssg("Click restart button to play!")}
+              }
+            >
+              <CardMedia
+                component="img"
+                sx={{ height: 300, objectFit: "fill" }}
+                image={card.revealed ? card.img : backCard}
+                title={card.revealed ? card.name : "Click to reveal card!"}
+              />
+            </Card>
+          ))}
+        </Stack>
+        <Typography variant="h4" sx={{ color: "#644518", textAlign: "center", fontSize: {xs: "27px", md: "40px"} }}>
+          {mssg}
+        </Typography>
+        <Typography variant="body1" sx={{ color: "#644518", fontSize: "20px", textAlign: "center" }}>
+          Defuser Kit: {defuserKit}
+        </Typography>
+        <Typography variant="body1" sx={{ color: "#644518", fontSize: "20px", textAlign: "center" }}>
+          Cards Revealed: {`${revealedCards}/5`}
+        </Typography>
+        <Stack direction="row" gap="20px" flexWrap="wrap" justifyContent="center">
+          <Button
+            variant="outlined"
+            sx={{
+              color: "#644518",
+              borderColor: "#ae7929",
+              "&:hover": {
+                backgroundColor: "#fabd62",
+                borderColor: "#ae7929",
+              },
+            }}
+            onClick={restartGame}
           >
-            <CardMedia
-              component="img"
-              sx={{ height: 300, objectFit: "fill" }}
-              image={card.revealed ? card.img : backCard}
-              title={card.revealed ? card.name : "Click to reveal card!"}
-            />
-          </Card>
-        ))}
-      </Stack>
-      <Typography variant="h4" sx={{ color: "#644518" }}>
-        {mssg}
-      </Typography>
-      <Typography variant="body1" sx={{ color: "#644518", fontSize: "20px" }}>
-        Defuser Kit: {defuserKit}
-      </Typography>
-      <Typography variant="body1" sx={{ color: "#644518", fontSize: "20px" }}>
-        Cards Revealed: {`${revealedCards}/5`}
-      </Typography>
-      <Stack direction="row" gap="20px">
-        <Button
-          variant="outlined"
-          sx={{
-            color: "#644518",
-            borderColor: "#ae7929",
-            "&:hover": {
-              backgroundColor: "#fabd62",
+            Restart
+          </Button>
+          <Button
+            variant="outlined"
+            sx={{
+              color: "#644518",
               borderColor: "#ae7929",
-            },
-          }}
-          onClick={restartGame}
-        >
-          Restart
-        </Button>
-        <Button
-          variant="outlined"
-          sx={{
-            color: "#644518",
-            borderColor: "#ae7929",
-            "&:hover": {
-              backgroundColor: "#fabd62",
-              borderColor: "#ae7929",
-            },
-          }}
-          onClick={quit}
-        >
-          Quit
-        </Button>
+              "&:hover": {
+                backgroundColor: "#fabd62",
+                borderColor: "#ae7929",
+              },
+            }}
+            onClick={quit}
+          >
+            Quit
+          </Button>
+        </Stack>
       </Stack>
     </Box>
   );

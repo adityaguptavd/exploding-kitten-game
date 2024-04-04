@@ -2,7 +2,6 @@ import {
   Box,
   Typography,
   Stack,
-  Button,
   List,
   ListItem,
   ListItemText,
@@ -12,6 +11,7 @@ import { useFetchUserQuery } from "../../state/api";
 import { setUser } from "../../state/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import StyledButton from "../../components/StyledButton";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -39,9 +39,28 @@ const Home = () => {
       alignItems="center"
       className="home"
     >
-      <Box width="100%" display="flex" justifyContent="center">
-        <Box sx={{ flex: 0.5 }}>
-          <List sx={{ marginLeft: "20px" }}>
+      <Box
+        width="100%"
+        display="flex"
+        justifyContent="center"
+        flexDirection={{
+          xs: "column",
+          sm: "row",
+        }}
+      >
+        <Box
+          sx={{
+            alignSelf: "flex-start",
+          }}
+        >
+          <List
+            sx={{
+              marginLeft: {
+                xs: "5px",
+                sm: "20px",
+              },
+            }}
+          >
             <ListItem>
               <ListItemText
                 primary={
@@ -51,14 +70,50 @@ const Home = () => {
                       }`
                     : "User"
                 }
-                sx={{color: "#644518", '& .MuiListItemText-secondary': { color: '#ae7929' }}}
-                secondary={data && `@${data.user.username}`}
+                sx={{
+                  color: "#644518",
+                  "& .MuiListItemText-primary": {
+                    fontSize: {
+                      xs: "12px",
+                      sm: "17px",
+                    },
+                  },
+                  "& .MuiListItemText-secondary": {
+                    color: "#ae7929",
+                    fontSize: {
+                      xs: "8px",
+                      sm: "12px",
+                    },
+                  },
+                }}
+                secondary={data ? `@${data.user.username}` : "@username"}
               />
             </ListItem>
           </List>
         </Box>
-        <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-start" }}>
-          <Typography variant="h3" sx={{ marginTop: "30px", color: "#4b3412" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flex: 1,
+          }}
+        >
+          <Typography
+            variant="h3"
+            color="#4b3412"
+            mt={{
+              xs: "0px",
+              sm: "30px",
+            }}
+            sx={{
+              fontSize: {
+                xs: "25px",
+                sm: "40px",
+                md: "50px",
+              },
+              textAlign: "center",
+            }}
+          >
             World of Exploding Kittens
           </Typography>
         </Box>
@@ -83,38 +138,34 @@ const Home = () => {
         )}
       </Typography>
       <Stack direction="column" spacing={3} mt="150px">
-        <Button
-          sx={{ color: "#7d571e", fontSize: "1.5rem" }}
+        <StyledButton
           onClick={() => {
             navigate("/game");
           }}
         >
           Start Game
-        </Button>
-        <Button
-          sx={{ color: "#7d571e", fontSize: "1.5rem" }}
+        </StyledButton>
+        <StyledButton
           onClick={() => {
             navigate("/leaderboard");
           }}
         >
           Leaderboard
-        </Button>
-        <Button
-          sx={{ color: "#7d571e", fontSize: "1.5rem" }}
+        </StyledButton>
+        <StyledButton
           onClick={() => {
             navigate("/about");
           }}
         >
           About Game
-        </Button>
-        <Button
-          sx={{ color: "#7d571e", fontSize: "1.5rem" }}
+        </StyledButton>
+        <StyledButton
           onClick={() => {
             navigate("/login");
           }}
         >
           Log out
-        </Button>
+        </StyledButton>
       </Stack>
     </Box>
   );

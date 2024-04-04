@@ -12,7 +12,7 @@ const About = () => {
   return (
     <Box
       width="100%"
-      height="100vh"
+      minHeight="100vh"
       display="flex"
       flexDirection="column"
       alignItems="center"
@@ -20,11 +20,11 @@ const About = () => {
     >
       <Typography
         variant="h3"
-        sx={{ color: "#4b3412", fontWeight: 700, marginTop: "30px" }}
+        sx={{ color: "#4b3412", fontWeight: 700, marginTop: "30px", textAlign: "center" }}
       >
         About Exploding Kitten Game
       </Typography>
-      <Typography variant="subtitle1" sx={{ color: "#644518", fontWeight: 700 }}>
+      <Typography variant="subtitle1" sx={{ color: "#644518", fontWeight: 700, textAlign: "center" }}>
         - An online single-player card game
       </Typography>
       <Typography
@@ -53,14 +53,14 @@ const About = () => {
       </Typography>
       <Stack
         direction="row"
-        spacing={20}
+        justifyContent="space-around"
         alignItems="center"
-        sx={{ marginTop: "20px", flexWrap: "wrap" }}
+        sx={{ marginTop: "20px", flexWrap: "wrap", width: "100%" }}
       >
         {cards.map((card) => (
           <Card
             key={card.name}
-            sx={{ maxWidth: 250, backgroundColor: "#fbc676", minHeight: 460 }}
+            sx={{ maxWidth: 250, backgroundColor: "#fbc676", minHeight: 460, marginBottom: "50px !important" }}
           >
             <CardMedia
               component="img"

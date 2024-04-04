@@ -1,24 +1,14 @@
-import { Box, Typography, Paper, Stack } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-import { LoadingButton } from "@mui/lab";
-import styled from "styled-components";
+import { Box, Typography, Stack } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import LoadButton from "../../components/LoadButton";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import CustomSnack from "../../components/Snackbar";
 import Input from "../../components/Input";
 import { useGetTokenMutation } from "../../state/api";
 import { setToken } from "../../state/user/tokenSlice"
-
-const StyledLink = styled(Link)`
-  color: #644518;
-  text-decoration: none;
-
-  &:hover {
-    color: #ff6347;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
-`;
+import PaperBox from "../../components/PaperBox";
+import StyledLink from "../../components/StyledLink";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -126,21 +116,33 @@ const Login = () => {
           setSnackbar({ open: false, mssg: "" });
         }}
       />
-      <Typography variant="h3" color="#4b3412" mt="20px">
-        World of Exploding Kittens
-      </Typography>
-      <Paper
-        elevation={5}
-        color="#644518"
+      <Typography 
+        variant="h3" 
+        color="#4b3412" 
+        mt="20px"
         sx={{
-          backgroundColor: "#fbc676",
-          width: "400px",
-          height: "600px",
-          marginTop: "50px",
+          fontSize: {
+            xs: "25px",
+            sm: "45px",
+            md: "50px",
+          }
         }}
       >
+        World of Exploding Kittens
+      </Typography>
+      <PaperBox elevation={5}>
         <Stack direction="column" spacing={4} alignItems="center" mt="40px">
-          <Typography variant="h4" color="#4b3412">
+          <Typography 
+            variant="h4" 
+            color="#4b3412"
+            sx={{
+              fontSize: {
+                xs: "20px",
+                sm: "30px",
+                md: "35px"
+              }
+            }}
+          >
             Login
           </Typography>
           <Input
@@ -160,23 +162,15 @@ const Login = () => {
           />
           <StyledLink to={"/register"}>New User?</StyledLink>
 
-          <LoadingButton
+          <LoadButton
             loading={isLoading}
             variant="outlined"
-            sx={{
-              color: "#644518",
-              borderColor: "#ae7929",
-              "&:hover": {
-                backgroundColor: "#fabd62",
-                borderColor: "#ae7929",
-              },
-            }}
             onClick={login}
           >
             Login
-          </LoadingButton>
+          </LoadButton>
         </Stack>
-      </Paper>
+      </PaperBox>
     </Box>
   );
 };
