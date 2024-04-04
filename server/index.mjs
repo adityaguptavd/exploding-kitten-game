@@ -8,8 +8,6 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 dotenv.config();
-
-const host = process.env.HOST;
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -44,7 +42,7 @@ app.get('*', (req, res) => {
 });
 
 connect().then(() => {
-    app.listen(port, host, () => {
-        console.log(`Server is running on ${host}:${port}`);
+    app.listen(port, () => {
+        console.log(`Server is running on port ${port}`);
     });
 });
