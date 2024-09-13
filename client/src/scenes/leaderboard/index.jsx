@@ -65,7 +65,11 @@ export default function BasicTable() {
       </Typography>
       <TableContainer
         component={Paper}
-        sx={{ margin: "10px", border: "1px solid #4b3412", boxSizing: "border-box" }}
+        sx={{
+          margin: "10px",
+          border: "1px solid #4b3412",
+          boxSizing: "border-box",
+        }}
       >
         <Table sx={{ minWidth: 645 }} aria-label="simple table">
           <TableHead sx={{ backgroundColor: "#7d571e" }}>
@@ -78,7 +82,7 @@ export default function BasicTable() {
                 Rank
               </TableCell>
               <TableCell sx={{ color: "#fff" }} align="center">
-                Points
+                Accuracy
               </TableCell>
               <TableCell sx={{ color: "#fff" }} align="center">
                 Matches Won
@@ -108,7 +112,12 @@ export default function BasicTable() {
                     {row.rank ? row.rank : index + 1}
                   </TableCell>
                   <TableCell align="center" sx={{ color: "#fff" }}>
-                    {row.wonMatches}
+                    {row.loseMatches + row.wonMatches === 0
+                      ? "0%"
+                      : `${(
+                          row.wonMatches /
+                          (row.loseMatches + row.wonMatches)
+                        ).toFixed(2)}%`}
                   </TableCell>
                   <TableCell align="center" sx={{ color: "#fff" }}>
                     {row.wonMatches}

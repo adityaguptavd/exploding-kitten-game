@@ -5,7 +5,7 @@ dotenv.config();
 // url of database
 
 const connect = async () => {
-    const db_url = process.env.DB_URL;
+    const db_url = process.env.LOCAL_DB_URL || process.env.DB_URL;
     try{
         console.log('Connecting to Database...');
         // connect to database

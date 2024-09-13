@@ -1,0 +1,27 @@
+.card-container .front {
+    transform: rotateY(90deg);
+    transition: all ease-in 0.2s;
+    position: absolute;
+  }
+  .flipped .front {
+    transform: rotateY(0deg);
+    transition-delay: 0.2s;
+  }
+  .card-container .back {
+    transition: all ease-in 0.2s;
+    transition-delay: 0.2s;
+  }
+  .flipped .back {
+    transform: rotateY(90deg);
+    transition-delay: 0s;
+  }
+
+  @keyframes winAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  
+  .win {
+    animation: winAnimation 1s ease-in-out infinite;
+  }

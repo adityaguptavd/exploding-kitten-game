@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const baseUrl = import.meta.env.VITE_API_URL || '/api/v1';
+
 export const registerApi = createApi({
-    baseQuery: fetchBaseQuery({baseUrl: '/api/v1'}),
+    baseQuery: fetchBaseQuery({baseUrl}),
     reducerPath: "registerApi",
     tagTypes: ["Token"],
     endpoints: (build) => ({
@@ -18,7 +20,7 @@ export const registerApi = createApi({
 });
 
 export const loginApi = createApi({
-    baseQuery: fetchBaseQuery({baseUrl: '/api/v1'}),
+    baseQuery: fetchBaseQuery({baseUrl}),
     reducerPath: "loginApi",
     tagTypes: ["Token"],
     endpoints: (build) => ({
@@ -36,7 +38,7 @@ export const loginApi = createApi({
 
 export const leaderboardApi = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: '/api/v1',
+        baseUrl,
     }),
     reducerPath: "leaderboardApi",
     tagTypes: ["Leaderboard"],
@@ -53,7 +55,7 @@ export const leaderboardApi = createApi({
 
 export const fetchUserApi = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: '/api/v1',
+        baseUrl,
     }),
     reducerPath: "fetchUserApi",
     tagTypes: ["User"],
@@ -69,7 +71,7 @@ export const fetchUserApi = createApi({
 });
 
 export const saveGameApi = createApi({
-    baseQuery: fetchBaseQuery({baseUrl: '/api/v1'}),
+    baseQuery: fetchBaseQuery({baseUrl}),
     reducerPath: "saveGameApi",
     tagTypes: ["Save"],
     endpoints: (build) => ({

@@ -6,29 +6,13 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { useFetchUserQuery } from "../../state/api";
-import { setUser } from "../../state/user/userSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import StyledButton from "../../components/StyledButton";
 
 const Home = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.token.token);
-
-  const { data, error, refetch } = useFetchUserQuery({ token });
-
-  useEffect(() => {
-    if (data) {
-      dispatch(setUser(data.user));
-    }
-  }, [data, error]);
-
-  useEffect(() => {
-    refetch();
-  }, []);
+  const user = useSelector((state) => state.user);
 
   return (
     <Box
@@ -64,10 +48,8 @@ const Home = () => {
             <ListItem>
               <ListItemText
                 primary={
-                  data
-                    ? `${data.user.firstname} ${
-                        data.user.lastname ? data.user.lastname : ""
-                      }`
+                  user
+                    ? `${user.firstname} ${user.lastname ? user.lastname : ""}`
                     : "User"
                 }
                 sx={{
@@ -86,7 +68,7 @@ const Home = () => {
                     },
                   },
                 }}
-                secondary={data ? `@${data.user.username}` : "@username"}
+                secondary={user ? `@${user.username}` : "@username"}
               />
             </ListItem>
           </List>
@@ -127,13 +109,11 @@ const Home = () => {
           fontSize: "30px",
         }}
       >
-        {data && (
+        {user && (
           <>
             {" "}
             Matches Won:{" "}
-            {`${data.user.wonMatches}/${
-              data.user.wonMatches + data.user.loseMatches
-            }`}{" "}
+            {`${user.wonMatches}/${user.wonMatches + user.loseMatches}`}{" "}
           </>
         )}
       </Typography>
@@ -157,7 +137,7 @@ const Home = () => {
             navigate("/about");
           }}
         >
-          About Game
+          Rules
         </StyledButton>
         <StyledButton
           onClick={() => {

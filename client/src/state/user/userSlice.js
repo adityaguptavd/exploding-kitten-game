@@ -6,6 +6,7 @@ const initialState = {
     lastname: "",
     wonMatches: 0,
     loseMatches: 0,
+    rank: 0,
 }
 
 export const userSlice = createSlice({
@@ -18,6 +19,7 @@ export const userSlice = createSlice({
             state.wonMatches = action.payload.wonMatches;
             state.loseMatches = action.payload.loseMatches;
             state.username = action.payload.username;
+            state.rank = action.payload.rank;
         },
     }
 });

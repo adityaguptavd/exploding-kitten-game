@@ -2,17 +2,36 @@ import getUsername from "../middleware/getUsername.mjs";
 import User from "../db/models/User.mjs";
 import { body, validationResult } from "express-validator";
 
+const getRank = async (user) => {
+// Get the rank of the user
+const usersWithMoreWins = await User.countDocuments({
+  wonMatches: { $gt: user.wonMatches },
+});
+const userWithMoreWinsAndLessLoses = await User.countDocuments({
+  wonMatches: user.wonMatches,
+  loseMatches: {$lt: user.loseMatches},
+})
+const usersWithSameWinsAndSameLosesAndEarlierDate = await User.countDocuments({
+  wonMatches: user.wonMatches,
+  loseMatches: user.loseMatches,
+  updatedAt: { $lt: user.updatedAt },
+});
+return usersWithMoreWins + userWithMoreWinsAndLessLoses + usersWithSameWinsAndSameLosesAndEarlierDate + 1;
+}
+
 export const fetchUser = [
   getUsername,
-  async (req, res, next) => {
+  async (req, res, _next) => {
     try {
-      const user = await User.findOne(
+      let user = await User.findOne(
         { username: req.username },
         "-_id -password -__v"
       );
       if (!user) {
         return res.status(404).json({ error: "User not found!" });
       }
+      user = user.toObject();
+      user.rank = await getRank(user);
       return res.status(200).json({ user });
     } catch (error) {
       console.error(error);
@@ -23,7 +42,7 @@ export const fetchUser = [
 
 export const getLeaderBoard = [
   getUsername,
-  async (req, res, next) => {
+  async (req, res, _next) => {
     try {
       const user = await User.findOne({ username: req.username });
       if (!user) {
@@ -38,20 +57,7 @@ export const getLeaderBoard = [
         return res.status(500).json({ error: "Something went wrong!" });
       }
 
-      // Get the rank of the user
-      const usersWithMoreWins = await User.countDocuments({
-        wonMatches: { $gt: user.wonMatches },
-      });
-      const userWithMoreWinsAndLessLoses = await User.countDocuments({
-        wonMatches: user.wonMatches,
-        loseMatches: {$lt: user.loseMatches},
-      })
-      const usersWithSameWinsAndSameLosesAndEarlierDate = await User.countDocuments({
-        wonMatches: user.wonMatches,
-        loseMatches: user.loseMatches,
-        updatedAt: { $lt: user.updatedAt },
-      });
-      const rank = usersWithMoreWins + userWithMoreWinsAndLessLoses + usersWithSameWinsAndSameLosesAndEarlierDate + 1;
+      const rank = await getRank(user);
 
       return res.status(200).json({ leaderboard, rank });
     } catch (error) {
@@ -66,7 +72,7 @@ export const saveGame = [
   // validation rules
   body("isWon").exists().isBoolean().withMessage("Match status must be boolean."),
 
-  async (req, res, next) => {
+  async (req, res, _next) => {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -83,7 +89,8 @@ export const saveGame = [
         user.loseMatches += 1;
       }
       await user.save();
-      return res.status(200).json({ message: "Game saved on server" });
+      const rank = await getRank(user);
+      return res.status(200).json({ message: "Game saved on server", rank });
     } catch (error) {
       console.error(error);
       return res.status(500).json({ error: "Internal Server Error" });
